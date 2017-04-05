@@ -19,12 +19,18 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/explore_viz_1.PNG "Visualization"
 [image2]: ./examples/explore_viz_2.PNG "Count"
+[image9]: ./examples/explore_viz_3.PNG "Chart"
 [image3]: ./examples/normalization.PNG "Normalization"
 [image4]: ./realtest/1.jpg "Traffic Sign 1"
 [image5]: ./realtest/2.jpg "Traffic Sign 2"
 [image6]: ./realtest/3.jpg "Traffic Sign 3"
 [image7]: ./realtest/4.jpg "Traffic Sign 4"
 [image8]: ./realtest/5.jpg "Traffic Sign 5"
+[image10]: ./examples/test1.png "1"
+[image11]: ./examples/test2.png "2"
+[image12]: ./examples/test3.png "3"
+[image13]: ./examples/test4.png "4"
+[image14]: ./examples/test5.PNG "5"
 
 ## Rubric Points
 Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -56,6 +62,7 @@ I picked one image from each category and display them in a grid:
 Then I printed out the number of training samples for each category:
 
 ![count of training samples][image2]
+![histogram][image9]
 
 ---
 
@@ -63,7 +70,7 @@ Then I printed out the number of training samples for each category:
 
 #### 1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
 
-The code for this step is contained in the 5th and 6th code cells of the IPython notebook.
+The code for this step is contained in the 6th and 7th code cells of the IPython notebook.
 
 First I convert the images to grayscale.  Then I normalize the pixel values of each image, the biggest value becomes 1, the smallest 0.  As suggested during the lessons, without this normalization, we would have had to adjust the learning rate to accommodate.
 
@@ -73,12 +80,14 @@ Then I display 3 random images from the training, validation, and test datasets:
 
 #### 2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
-The original dataset were already split into training, validation, and testing.  I did not augment the datasets.
+The original dataset were already split into training, validation, and testing.
+
+I augmented the training dataset by generating 2 scaled-up versions of each image, drawing from a normal distribution with mu=.16 and sigma=.08.  The code for this is in the 5th code cell of the IPython notebook.
 
 
 #### 3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-The code for my final model is located in the seventh cell of the ipython notebook. 
+The code for my final model is located in the 8th cell of the ipython notebook. 
 
 My final model consisted of the following layers:
 
@@ -101,7 +110,7 @@ My final model consisted of the following layers:
 
 #### 4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
+The code for training the model is located in the 9th and 10th cell of the ipython notebook. 
 
 I use SoftMax cross entropy with the Adam Optimizer.  I define a `train` function that breaks the training dataset into batches and run them one by one in the session.  And define a `evaluate` function that computes the accuracy of the predictions, which will be called on the validation and test datasets.
 
@@ -113,9 +122,9 @@ The code for calculating the accuracy of the model is located in the ninth cell 
 
 My final model results were:
 
-* Training set accuracy of .993
-* Validation set accuracy of .966
-* Test set accuracy of .938
+* Training set accuracy of .995
+* Validation set accuracy of .973
+* Test set accuracy of .953
 
 
 ##### What was the first architecture that was tried and why was it chosen?
@@ -167,68 +176,34 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| 120 km/h      		| End of speed limit (80 km/h)   				| 
+| 120 km/h      		| General caution   							| 
 | 30 km/h     			| 30 km/h 										|
 | Children crossing		| Children crossing								|
-| Chidlren crossing		| No entry						 				|
-| Right turn ahead		| Wild animals crossing							|
+| Chidlren crossing		| Keep left						 				|
+| Right turn ahead		| Speed limit (60km/h)							|
 
 
 The model was able to correctly guess only 2 of the 5 traffic signs, which gives an accuracy of 40%.  It is quite strange that it wasn't able to recognize the first image (120km/h) because the sign is quite clear, and there are relatively many training samples for this sign.  The 4th image is understandable, since the sign differs in shape to the training signs.  The 5th image is another mystery.  Despite graffiti on the sign's face, a human could otherwise easily recognize it.
 
-I frankly would love to have more time to investigate this, but I'm on a time crunch at the moment.
+The accuracy 40% is very poor compared to that of the test set (.953).  This indicated overfitting.  But also because the test images I picked do have some significant issues like occlusion, graffiti, etc.
+
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
 For the first image, the model completely misses this sign (120km/h). The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:----------------------|:----------------------------------------------| 
-| 0.23					| End of speed limit (80km/h)					|
-| 0.17					| End of no passing by vehicles over 3.5 metric tons
-| 0.15					| Speed limit (30km/h)
-| 0.10					| Roundabout mandatory
-| 0.09					| Right-of-way at the next intersection
+![1][image10]
 
 For the 2nd image (30km/h), it guesses correctly with 100% certainty.
-
-| Probability         	|     Prediction	        					| 
-|:----------------------|:----------------------------------------------| 
-| 1.00					| Speed limit (30km/h)
-| 0.00					| Speed limit (20km/h)
-| 0.00					| Speed limit (80km/h)
-| 0.00					| End of speed limit (80km/h)
-| 0.00					| Speed limit (70km/h)
+![1][image11]
 
 For the 3rd image (Children crossing), it guesses correctly with 99% certainty.
-
-| Probability         	|     Prediction	        					| 
-|:----------------------|:----------------------------------------------| 
-| 0.99					| Children crossing
-| 0.00					| Turn left ahead
-| 0.00					| End of no passing
-| 0.00					| End of all speed and passing limits
-| 0.00					| Ahead only
+![1][image12]
 
 For the 4th image (bad Children crossing sign), it guesses incorrect but with 90% certainty!
-
-| Probability         	|     Prediction	        					| 
-|:----------------------|:----------------------------------------------| 
-| 0.90					| No entry
-| 0.10					| Stop
-| 0.00					| Speed limit (20km/h)
-| 0.00					| Traffic signals
-| 0.00					| Speed limit (30km/h)
+![1][image13]
 
 For the 5th image (Right turn ahead), it does not recognize at all.
-
-| Probability         	|     Prediction	        					| 
-|:----------------------|:----------------------------------------------| 
-| 0.22					| Wild animals crossing
-| 0.14					| Speed limit (60km/h)
-| 0.13					| Road work
-| 0.09					| Speed limit (30km/h)
-| 0.07					| Double curve| .60         			
+![1][image14]
 
