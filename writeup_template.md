@@ -193,17 +193,22 @@ The accuracy 40% is very poor compared to that of the test set (.953).  This ind
 The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
 For the first image, the model completely misses this sign (120km/h). The top five soft max probabilities were
+
 ![1][image10]
 
 For the 2nd image (30km/h), it guesses correctly with 100% certainty.
+
 ![1][image11]
 
-For the 3rd image (Children crossing), it guesses correctly with 99% certainty.
+For the 3rd image (Children crossing), it guesses correctly with 93% certainty.
+
 ![1][image12]
 
-For the 4th image (bad Children crossing sign), it guesses incorrect but with 90% certainty!
+For the 4th image (bad Children crossing sign), it couldn't guess what it is.
+
 ![1][image13]
 
-For the 5th image (Right turn ahead), it does not recognize at all.
+For the 5th image (Right turn ahead), it thought it is the 60km/h speed limit sign.
+
 ![1][image14]
 
