@@ -29,7 +29,7 @@ The goals / steps of this project are the following:
 ## Rubric Points
 Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
-Here is a link to my [project code](https://github.com/ken107/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+Here is a link to my [project code](https://github.com/ken107/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb) and the [exported HTML](https://rawgit.com/ken107/CarND-Traffic-Sign-Classifier-Project/master/Traffic_Sign_Classifier.html).
 
 ### Data Set Summary & Exploration
 
